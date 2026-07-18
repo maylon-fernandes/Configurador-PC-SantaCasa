@@ -42,14 +42,18 @@ $form.BackColor = [Drawing.Color]::White
 # LOGO
 #=================================================
 
-$logo = New-Object Windows.Forms.PictureBox
-$logo.Location = New-Object Drawing.Point(20,20)
-$logo.Size = New-Object Drawing.Size(120,120)
-$logo.SizeMode = "Zoom"
+# Criar PictureBox da logo
+$logo = New-Object System.Windows.Forms.PictureBox
+$logo.Size = New-Object System.Drawing.Size(150,150)
+$logo.Location = New-Object System.Drawing.Point(20,20)
+$logo.SizeMode = [System.Windows.Forms.PictureBoxSizeMode]::Zoom
 
+
+# Link da logo no GitHub
 $logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
+
 
 try {
 
@@ -60,7 +64,8 @@ try {
 
     Write-Host "Logo baixada em: $tempLogo"
 
-    $logo.Image = [Drawing.Image]::FromFile($tempLogo)
+    # Carregar imagem no PictureBox
+    $logo.Image = [System.Drawing.Image]::FromFile($tempLogo)
 
 }
 catch {
@@ -70,6 +75,8 @@ catch {
 
 }
 
+
+# Adicionar logo na janela
 $form.Controls.Add($logo)
 
 #=================================================
