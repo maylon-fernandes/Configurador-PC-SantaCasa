@@ -68,7 +68,15 @@ try {
 
     if(Test-Path $tempLogo){
 
-        $logo.Image = [System.Drawing.Image]::FromFile($tempLogo)
+        $imgBytes = [System.IO.File]::ReadAllBytes($tempLogo)
+
+        $ms = New-Object System.IO.MemoryStream
+        $ms.Write($imgBytes, 0, $imgBytes.Length)
+        $ms.Position = 0
+
+        $logo.Image = [System.Drawing.Image]::FromStream($ms)
+
+        $logo.Tag = $ms
 
     }
 
