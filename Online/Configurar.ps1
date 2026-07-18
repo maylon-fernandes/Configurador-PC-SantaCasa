@@ -193,7 +193,7 @@ $btnOffice = New-Object Windows.Forms.Button
 $btnOffice.Text = "Windows / Office"
 $btnOffice.Size = New-Object Drawing.Size(180,45)
 $btnOffice.Location = New-Object Drawing.Point(220,360)
-$btnOffice.Enabled = $false
+$btnOffice.Enabled = $true
 $btnOffice.BackColor = [Drawing.Color]::Silver
 $btnOffice.ForeColor = "White"
 $btnOffice.FlatStyle = "Flat"
@@ -330,24 +330,10 @@ else{
 }
     $progress.Value = 60
 
-    # Detecta Dell
+# Habilita Windows / Office
 
-    if($fabricante -match "Dell"){
-
-    $btnOffice.Enabled = $false
-    $btnOffice.BackColor = [Drawing.Color]::Silver
-
-    Add-Log "Computador Dell detectado."
-
-}
-else{
-
-    $btnOffice.Enabled = $true
-    $btnOffice.BackColor = [Drawing.Color]::ForestGreen
-
-    Add-Log "Computador NÃO é Dell."
-
-}
+$btnOffice.Enabled = $true
+$btnOffice.BackColor = [Drawing.Color]::ForestGreen
 
     $progress.Value = 80
 
