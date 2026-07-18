@@ -53,7 +53,9 @@ $logo.SizeMode = "Zoom"
 $logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
-
+if(Test-Path $tempLogo){
+    Remove-Item $tempLogo -Force
+}
 
 try {
 
@@ -64,8 +66,11 @@ try {
 
     Write-Host "Logo baixada em: $tempLogo"
 
-    # Carregar imagem no PictureBox
-    $logo.Image = [System.Drawing.Image]::FromFile($tempLogo)
+
+    # Carregar imagem sem bloquear o arquivo
+$bytes = [System.IO.File]::ReadAllBytes($tempLogo)
+$stream = New-Object System.IO.MemoryStream($bytes)
+$logo.Image = [System.Drawing.Image]::FromStream($stream)
 
 }
 catch {
