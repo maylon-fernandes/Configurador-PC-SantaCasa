@@ -44,7 +44,7 @@ $form.BackColor = [Drawing.Color]::White
 
 # Criar PictureBox da logo
 $logo = New-Object System.Windows.Forms.PictureBox
-$logo.Size = New-Object System.Drawing.Size(150,150)
+$logo.Size = New-Object System.Drawing.Size(120,120)
 $logo.Location = New-Object System.Drawing.Point(20,20)
 $logo.SizeMode = [System.Windows.Forms.PictureBoxSizeMode]::Zoom
 
