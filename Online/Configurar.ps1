@@ -54,7 +54,14 @@ $logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-S
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
 if(Test-Path $tempLogo){
-    Remove-Item $tempLogo -Force
+
+    try{
+        Remove-Item $tempLogo -Force -ErrorAction Stop
+    }
+    catch{
+        Write-Host "Logo antiga em uso, usando a existente."
+    }
+
 }
 
 try {
@@ -66,19 +73,15 @@ try {
 
     Write-Host "Logo baixada em: $tempLogo"
 
-    if(Test-Path $tempLogo){
+    $imgBytes = [System.IO.File]::ReadAllBytes($tempLogo)
 
-        $imgBytes = [System.IO.File]::ReadAllBytes($tempLogo)
+    $ms = New-Object System.IO.MemoryStream
+    $ms.Write($imgBytes,0,$imgBytes.Length)
+    $ms.Position = 0
 
-        $ms = New-Object System.IO.MemoryStream
-        $ms.Write($imgBytes, 0, $imgBytes.Length)
-        $ms.Position = 0
+    $logo.Image = [System.Drawing.Image]::FromStream($ms)
 
-        $logo.Image = [System.Drawing.Image]::FromStream($ms)
-
-        $logo.Tag = $ms
-
-    }
+    $logo.Tag = $ms
 
 }
 catch {
