@@ -47,10 +47,26 @@ $logo.Location = New-Object Drawing.Point(20,20)
 $logo.Size = New-Object Drawing.Size(120,120)
 $logo.SizeMode = "Zoom"
 
-$logoPath = Join-Path $PSScriptRoot "Assets\logo.png"
+$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/Assets/logo.png"
 
-if(Test-Path $logoPath){
-    $logo.Image = [Drawing.Image]::FromFile($logoPath)
+$tempLogo = "$env:TEMP\SantaCasa_logo.png"
+
+try{
+
+    Invoke-WebRequest `
+    -Uri $logoURL `
+    -OutFile $tempLogo `
+    -ErrorAction Stop
+
+    $logo.Image = [Drawing.Image]::FromFile($tempLogo)
+
+    Add-Log "Logo carregada."
+
+}
+catch{
+
+    Add-Log "Não foi possível carregar a logo."
+
 }
 
 $form.Controls.Add($logo)
