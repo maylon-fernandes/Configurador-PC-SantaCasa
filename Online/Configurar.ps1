@@ -68,9 +68,13 @@ try {
 
 
     # Carregar imagem sem bloquear o arquivo
-$bytes = [System.IO.File]::ReadAllBytes($tempLogo)
-$stream = New-Object System.IO.MemoryStream($bytes)
-$logo.Image = [System.Drawing.Image]::FromStream($stream)
+    $bytes = [System.IO.File]::ReadAllBytes($tempLogo)
+
+    $global:logoStream = New-Object System.IO.MemoryStream
+    $global:logoStream.Write($bytes,0,$bytes.Length)
+    $global:logoStream.Position = 0
+
+    $logo.Image = [System.Drawing.Image]::FromStream($global:logoStream)
 
 }
 catch {
