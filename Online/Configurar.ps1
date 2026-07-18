@@ -47,7 +47,7 @@ $logo.Location = New-Object Drawing.Point(20,20)
 $logo.Size = New-Object Drawing.Size(120,120)
 $logo.SizeMode = "Zoom"
 
-$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/Assets/logo.png"
+$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
 
