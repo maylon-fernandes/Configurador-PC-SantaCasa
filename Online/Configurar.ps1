@@ -194,7 +194,7 @@ $btnOffice.Text = "Windows / Office"
 $btnOffice.Size = New-Object Drawing.Size(180,45)
 $btnOffice.Location = New-Object Drawing.Point(220,360)
 $btnOffice.Enabled = $true
-$btnOffice.BackColor = [Drawing.Color]::Silver
+$btnOffice.BackColor = [Drawing.Color]::ForestGreen
 $btnOffice.ForeColor = "White"
 $btnOffice.FlatStyle = "Flat"
 $btnOffice.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold)
@@ -330,10 +330,7 @@ else{
 }
     $progress.Value = 60
 
-# Habilita Windows / Office
 
-$btnOffice.Enabled = $true
-$btnOffice.BackColor = [Drawing.Color]::ForestGreen
 
     $progress.Value = 80
 
