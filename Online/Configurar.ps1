@@ -51,21 +51,22 @@ $logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-S
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
 
-try{
+try {
 
     Invoke-WebRequest `
     -Uri $logoURL `
     -OutFile $tempLogo `
     -ErrorAction Stop
 
+    Write-Host "Logo baixada em: $tempLogo"
+
     $logo.Image = [Drawing.Image]::FromFile($tempLogo)
 
-    Add-Log "Logo carregada."
-
 }
-catch{
+catch {
 
-    Add-Log "Não foi possível carregar a logo."
+    Write-Host "ERRO AO BAIXAR LOGO:"
+    Write-Host $_.Exception.Message
 
 }
 
