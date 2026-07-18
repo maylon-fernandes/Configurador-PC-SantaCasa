@@ -53,16 +53,6 @@ $logo.SizeMode = "Zoom"
 $logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
-if(Test-Path $tempLogo){
-
-    try{
-        Remove-Item $tempLogo -Force -ErrorAction Stop
-    }
-    catch{
-        Write-Host "Logo antiga em uso, usando a existente."
-    }
-
-}
 
 try {
 
@@ -75,13 +65,13 @@ try {
 
     $imgBytes = [System.IO.File]::ReadAllBytes($tempLogo)
 
-    $ms = New-Object System.IO.MemoryStream
-    $ms.Write($imgBytes,0,$imgBytes.Length)
-    $ms.Position = 0
+    $logoStream = New-Object System.IO.MemoryStream
+    $logoStream.Write($imgBytes,0,$imgBytes.Length)
+    $logoStream.Position = 0
 
-    $logo.Image = [System.Drawing.Image]::FromStream($ms)
+    $logo.Image = [System.Drawing.Image]::FromStream($logoStream)
 
-    $logo.Tag = $ms
+    $logo.Tag = $logoStream
 
 }
 catch {
@@ -90,7 +80,6 @@ catch {
     Write-Host $_.Exception.Message
 
 }
-
 
 # Adicionar logo na janela
 $form.Controls.Add($logo)
@@ -519,3 +508,11 @@ $btnOffice.Add_Click({
 })
 
 $form.ShowDialog()
+
+if($logo.Image){
+    $logo.Image.Dispose()
+}
+
+if($logo.Tag){
+    $logo.Tag.Dispose()
+}
