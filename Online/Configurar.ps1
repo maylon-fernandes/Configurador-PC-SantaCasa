@@ -66,15 +66,11 @@ try {
 
     Write-Host "Logo baixada em: $tempLogo"
 
+    if(Test-Path $tempLogo){
 
-    # Carregar imagem sem bloquear o arquivo
-    $bytes = [System.IO.File]::ReadAllBytes($tempLogo)
+        $logo.Image = [System.Drawing.Image]::FromFile($tempLogo)
 
-    $global:logoStream = New-Object System.IO.MemoryStream
-    $global:logoStream.Write($bytes,0,$bytes.Length)
-    $global:logoStream.Position = 0
-
-    $logo.Image = [System.Drawing.Image]::FromStream($global:logoStream)
+    }
 
 }
 catch {
