@@ -1,5 +1,7 @@
-﻿Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
+
+Write-Host "Windows Forms carregado"
 
 Clear-Host
 
@@ -40,17 +42,46 @@ $form.BackColor = [Drawing.Color]::White
 # LOGO
 #=================================================
 
+# Criar PictureBox da logo
 $logo = New-Object Windows.Forms.PictureBox
 $logo.Location = New-Object Drawing.Point(20,20)
 $logo.Size = New-Object Drawing.Size(120,120)
 $logo.SizeMode = "Zoom"
 
-$logoPath = Join-Path $PSScriptRoot "Assets\logo.png"
 
-if(Test-Path $logoPath){
-    $logo.Image = [Drawing.Image]::FromFile($logoPath)
+# Link da logo no GitHub
+$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
+
+$tempLogo = "$env:TEMP\SantaCasa_logo.png"
+
+try {
+
+    Invoke-WebRequest `
+    -Uri $logoURL `
+    -OutFile $tempLogo `
+    -ErrorAction Stop
+
+    Write-Host "Logo baixada em: $tempLogo"
+
+    $imgBytes = [System.IO.File]::ReadAllBytes($tempLogo)
+
+    $logoStream = New-Object System.IO.MemoryStream
+    $logoStream.Write($imgBytes,0,$imgBytes.Length)
+    $logoStream.Position = 0
+
+    $logo.Image = [System.Drawing.Image]::FromStream($logoStream)
+
+    $logo.Tag = $logoStream
+
+}
+catch {
+
+    Write-Host "ERRO AO BAIXAR LOGO:"
+    Write-Host $_.Exception.Message
+
 }
 
+# Adicionar logo na janela
 $form.Controls.Add($logo)
 
 #=================================================
@@ -162,8 +193,8 @@ $btnOffice = New-Object Windows.Forms.Button
 $btnOffice.Text = "Windows / Office"
 $btnOffice.Size = New-Object Drawing.Size(180,45)
 $btnOffice.Location = New-Object Drawing.Point(220,360)
-$btnOffice.Enabled = $false
-$btnOffice.BackColor = [Drawing.Color]::Silver
+$btnOffice.Enabled = $true
+$btnOffice.BackColor = [Drawing.Color]::ForestGreen
 $btnOffice.ForeColor = "White"
 $btnOffice.FlatStyle = "Flat"
 $btnOffice.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold)
@@ -299,24 +330,7 @@ else{
 }
     $progress.Value = 60
 
-    # Detecta Dell
 
-    if($fabricante -match "Dell"){
-
-    $btnOffice.Enabled = $false
-    $btnOffice.BackColor = [Drawing.Color]::Silver
-
-    Add-Log "Computador Dell detectado."
-
-}
-else{
-
-    $btnOffice.Enabled = $true
-    $btnOffice.BackColor = [Drawing.Color]::ForestGreen
-
-    Add-Log "Computador NÃO é Dell."
-
-}
 
     $progress.Value = 80
 
@@ -477,3 +491,11 @@ $btnOffice.Add_Click({
 })
 
 $form.ShowDialog()
+
+if($logo.Image){
+    $logo.Image.Dispose()
+}
+
+if($logo.Tag){
+    $logo.Tag.Dispose()
+}
