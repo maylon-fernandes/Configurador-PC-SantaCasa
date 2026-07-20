@@ -379,7 +379,7 @@ $btnUpdate.Add_Click({
 $btnReiniciar.Add_Click({
 
     $r = [System.Windows.Forms.MessageBox]::Show(
-        "Deseja reiniciar o computador teste?",
+        "Deseja reiniciar o computador?",
         "Reiniciar",
         "YesNo",
         "Question"
