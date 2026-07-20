@@ -201,6 +201,17 @@ $btnOffice.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold
 
 $form.Controls.Add($btnOffice)
 
+$btnProgramas = New-Object Windows.Forms.Button
+$btnProgramas.Text = "Instalar Programas"
+$btnProgramas.Size = New-Object Drawing.Size(180,45)
+$btnProgramas.Location = New-Object Drawing.Point(220,420)
+$btnProgramas.BackColor = [Drawing.Color]::DodgerBlue
+$btnProgramas.ForeColor = "White"
+$btnProgramas.FlatStyle = "Flat"
+$btnProgramas.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold)
+
+$form.Controls.Add($btnProgramas)
+
 $btnUpdate = New-Object Windows.Forms.Button
 $btnUpdate.Text = "Windows Update"
 $btnUpdate.Size = New-Object Drawing.Size(180,45)
@@ -473,6 +484,85 @@ $btnOffice.Add_Click({
         Add-Log "Rotina concluída."
 
         $status.Text = "Status: Concluído."
+
+    }
+    catch{
+
+        Add-Log "Erro: $($_.Exception.Message)"
+
+        [System.Windows.Forms.MessageBox]::Show(
+            $_.Exception.Message,
+            "Erro",
+            "OK",
+            "Error"
+        )
+
+    }
+
+})
+
+#=================================================
+# BOTÃO INSTALAR PROGRAMAS
+#=================================================
+
+#=================================================
+# BOTÃO INSTALAR PROGRAMAS
+#=================================================
+
+$btnProgramas.Add_Click({
+
+    $status.Text = "Status: Instalando programas..."
+    $progress.Value = 5
+
+    Add-Log "Iniciando instalação dos programas..."
+
+    try{
+
+        # Chrome
+        Add-Log "Instalando Google Chrome..."
+        winget install --id Google.Chrome -e --silent --accept-package-agreements --accept-source-agreements
+
+        $progress.Value = 25
+
+        # WinRAR
+        Add-Log "Instalando WinRAR..."
+        winget install --id RARLab.WinRAR -e --silent --accept-package-agreements --accept-source-agreements
+
+        $progress.Value = 50
+
+        # Java
+        Add-Log "Instalando Java..."
+        winget install --id Oracle.JavaRuntimeEnvironment -e --silent --accept-package-agreements --accept-source-agreements
+
+        $progress.Value = 75
+
+        # Atalho do Tasy
+        Add-Log "Criando atalho do Tasy..."
+
+        $Shell = New-Object -ComObject WScript.Shell
+
+        $atalho = $Shell.CreateShortcut("$env:Public\Desktop\Tasy.lnk")
+
+        $atalho.TargetPath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+        $atalho.Arguments = "http://tasy.santacasa.local"
+
+        $atalho.IconLocation = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+        $atalho.Save()
+
+        $progress.Value = 100
+
+        Add-Log "Programas instalados com sucesso."
+
+        $status.Text = "Status: Instalação concluída."
+
+        [System.Windows.Forms.MessageBox]::Show(
+            "Todos os programas foram instalados.",
+            "Concluído",
+            "OK",
+            "Information"
+        )
 
     }
     catch{
