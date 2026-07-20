@@ -8,7 +8,7 @@ Clear-Host
 Write-Host "Configurador TI Santa Casa"
 Write-Host "Iniciando..."
 
-# Verifica se está como administrador
+# Verifica se estÃ¡ como administrador
 
 $usuarioAdmin = ([Security.Principal.WindowsPrincipal] `
 [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -18,7 +18,7 @@ if(!$usuarioAdmin){
 
     [System.Windows.Forms.MessageBox]::Show(
         "Execute este configurador como Administrador.",
-        "Permissão necessária",
+        "PermissÃ£o necessÃ¡ria",
         "OK",
         "Warning"
     )
@@ -32,11 +32,11 @@ if(!$usuarioAdmin){
 
 $form = New-Object Windows.Forms.Form
 $form.Text = "Configurador TI - Santa Casa"
-$form.Size = New-Object Drawing.Size(850,650)
+$form.Size = New-Object Drawing.Size(920,720)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedSingle"
 $form.MaximizeBox = $false
-$form.BackColor = [Drawing.Color]::White
+$form.BackColor = [Drawing.Color]::FromArgb(243,244,246)
 
 #=================================================
 # LOGO
@@ -90,26 +90,26 @@ $form.Controls.Add($logo)
 
 $titulo = New-Object Windows.Forms.Label
 $titulo.Text = "Configurador de Computadores"
-$titulo.Font = New-Object Drawing.Font("Segoe UI",18,[Drawing.FontStyle]::Bold)
+$titulo.Font = New-Object Drawing.Font("Segoe UI Semibold",22,[Drawing.FontStyle]::Bold)
 $titulo.Location = New-Object Drawing.Point(170,25)
 $titulo.AutoSize = $true
 
 $form.Controls.Add($titulo)
 
 $sub = New-Object Windows.Forms.Label
-$sub.Text = "Santa Casa de Misericórdia"
-$sub.Font = New-Object Drawing.Font("Segoe UI",10)
+$sub.Text = "Santa Casa de MisericÃ³rdia"
+$sub.Font = New-Object Drawing.Font("Segoe UI",11)
 $sub.Location = New-Object Drawing.Point(173,65)
 $sub.AutoSize = $true
 
 $form.Controls.Add($sub)
 
 #=================================================
-# GRUPO INFORMAÇÕES
+# GRUPO INFORMAÃ‡Ã•ES
 #=================================================
 
 $grupoInfo = New-Object Windows.Forms.GroupBox
-$grupoInfo.Text = "Informações do Computador"
+$grupoInfo.Text = "InformaÃ§Ãµes do Computador"
 $grupoInfo.Location = New-Object Drawing.Point(20,160)
 $grupoInfo.Size = New-Object Drawing.Size(790,120)
 
@@ -137,14 +137,14 @@ $lblFabricante.AutoSize = $true
 $grupoInfo.Controls.Add($lblFabricante)
 
 $txtFabricante = New-Object Windows.Forms.Label
-$txtFabricante.Text = "Não verificado"
+$txtFabricante.Text = "NÃ£o verificado"
 $txtFabricante.Location = New-Object Drawing.Point(150,55)
 $txtFabricante.AutoSize = $true
 
 $grupoInfo.Controls.Add($txtFabricante)
 
 $lblDominio = New-Object Windows.Forms.Label
-$lblDominio.Text = "Domínio:"
+$lblDominio.Text = "DomÃ­nio:"
 $lblDominio.Location = New-Object Drawing.Point(20,80)
 $lblDominio.AutoSize = $true
 
@@ -175,7 +175,7 @@ $progress.Size = New-Object Drawing.Size(790,25)
 $form.Controls.Add($progress)
 
 #=================================================
-# AÇÕES
+# AÃ‡Ã•ES
 #=================================================
 
 $btnVerificar = New-Object Windows.Forms.Button
@@ -213,7 +213,7 @@ $btnUpdate.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold
 $form.Controls.Add($btnUpdate)
 
 $btnDominio = New-Object Windows.Forms.Button
-$btnDominio.Text = "Colocar no Domínio"
+$btnDominio.Text = "Colocar no DomÃ­nio"
 $btnDominio.Size = New-Object Drawing.Size(180,45)
 $btnDominio.Location = New-Object Drawing.Point(620,360)
 $btnDominio.BackColor = [Drawing.Color]::MediumPurple
@@ -239,8 +239,8 @@ $form.Controls.Add($btnReiniciar)
 #=================================================
 
 $log = New-Object Windows.Forms.RichTextBox
-$log.Location = New-Object Drawing.Point(20,470)
-$log.Size = New-Object Drawing.Size(790,120)
+$log.Location = New-Object Drawing.Point(20,520)
+$log.Size = New-Object Drawing.Size(870,150)
 $log.ReadOnly = $true
 $log.BackColor = [Drawing.Color]::Black
 $log.ForeColor = [Drawing.Color]::Lime
@@ -261,7 +261,7 @@ function Add-Log{
 Add-Log "Configurador iniciado."
 
 #=================================================
-# BOTÃO VERIFICAR COMPUTADOR
+# BOTÃƒO VERIFICAR COMPUTADOR
 #=================================================
 
 $btnVerificar.Add_Click({
@@ -269,7 +269,7 @@ $btnVerificar.Add_Click({
     $status.Text = "Status: Verificando computador..."
     $progress.Value = 10
 
-    Add-Log "Iniciando verificação..."
+    Add-Log "Iniciando verificaÃ§Ã£o..."
 
     # Nome do PC
     $txtNome.Text = $env:COMPUTERNAME
@@ -294,24 +294,24 @@ $btnVerificar.Add_Click({
 
     $txtDominio.Text = $pc.Domain
 
-    Add-Log "Domínio encontrado: $($pc.Domain)"
+    Add-Log "DomÃ­nio encontrado: $($pc.Domain)"
 
 
     if($pc.Domain -eq "santacasa.local"){
 
         $btnDominio.Enabled = $false
-        $btnDominio.Text = "✔ Já está no domínio"
+        $btnDominio.Text = "âœ” JÃ¡ estÃ¡ no domÃ­nio"
         $btnDominio.BackColor = [Drawing.Color]::Gray
 
-        Add-Log "Computador já pertence ao domínio santacasa.local."
+        Add-Log "Computador jÃ¡ pertence ao domÃ­nio santacasa.local."
 
     }
     else{
 
         $btnDominio.Enabled = $true
-        $btnDominio.Text = "Colocar no Domínio"
+        $btnDominio.Text = "Colocar no DomÃ­nio"
 
-        Add-Log "Computador está em outro domínio."
+        Add-Log "Computador estÃ¡ em outro domÃ­nio."
 
     }
 
@@ -322,10 +322,10 @@ else{
     $txtDominio.Text = "WORKGROUP"
 
     $btnDominio.Enabled = $true
-    $btnDominio.Text = "Colocar no Domínio"
+    $btnDominio.Text = "Colocar no DomÃ­nio"
     $btnDominio.BackColor = [Drawing.Color]::MediumPurple
 
-    Add-Log "Computador fora do domínio."
+    Add-Log "Computador fora do domÃ­nio."
 
 }
     $progress.Value = 60
@@ -338,18 +338,18 @@ else{
 
     $ram = [math]::Round(($pc.TotalPhysicalMemory/1GB),1)
 
-    Add-Log "Memória RAM: $ram GB"
+    Add-Log "MemÃ³ria RAM: $ram GB"
 
     $progress.Value = 100
 
-    $status.Text = "Status: Verificação concluída."
+    $status.Text = "Status: VerificaÃ§Ã£o concluÃ­da."
 
-    Add-Log "Verificação finalizada."
+    Add-Log "VerificaÃ§Ã£o finalizada."
 
 })
 
 # =======================================
-# BOTÃO WINDOWS UPDATE
+# BOTÃƒO WINDOWS UPDATE
 # =======================================
 
 $btnUpdate.Add_Click({
@@ -362,7 +362,7 @@ $btnUpdate.Add_Click({
 
 })
 # =======================================
-# BOTÃO REINICIAR
+# BOTÃƒO REINICIAR
 # =======================================
 
 $btnReiniciar.Add_Click({
@@ -381,12 +381,12 @@ $btnReiniciar.Add_Click({
 })
 
 #=================================================
-# BOTÃO DOMÍNIO
+# BOTÃƒO DOMÃNIO
 #=================================================
 
 $btnDominio.Add_Click({
 
-    $status.Text = "Status: Colocando no domínio..."
+    $status.Text = "Status: Colocando no domÃ­nio..."
     $progress.Value = 20
 
     Add-Log "Solicitando credenciais..."
@@ -395,10 +395,10 @@ $btnDominio.Add_Click({
 
 if($pc.PartOfDomain -and $pc.Domain -eq "santacasa.local"){
 
-    Add-Log "Computador já está no domínio santacasa.local."
+    Add-Log "Computador jÃ¡ estÃ¡ no domÃ­nio santacasa.local."
 
     [System.Windows.Forms.MessageBox]::Show(
-        "Este computador já pertence ao domínio santacasa.local.",
+        "Este computador jÃ¡ pertence ao domÃ­nio santacasa.local.",
         "Aviso",
         "OK",
         "Information"
@@ -407,7 +407,7 @@ if($pc.PartOfDomain -and $pc.Domain -eq "santacasa.local"){
     return
 }
 
-    $cred = Get-Credential -Message "Digite o administrador do domínio santacasa.local"
+    $cred = Get-Credential -Message "Digite o administrador do domÃ­nio santacasa.local"
 
     if($cred){
 
@@ -420,10 +420,10 @@ if($pc.PartOfDomain -and $pc.Domain -eq "santacasa.local"){
 
             $progress.Value = 100
 
-            Add-Log "Computador adicionado ao domínio."
+            Add-Log "Computador adicionado ao domÃ­nio."
 
             [System.Windows.Forms.MessageBox]::Show(
-                "Computador adicionado ao domínio com sucesso.`nSerá necessário reiniciar.",
+                "Computador adicionado ao domÃ­nio com sucesso.`nSerÃ¡ necessÃ¡rio reiniciar.",
                 "Sucesso",
                 "OK",
                 "Information"
@@ -450,7 +450,7 @@ if($pc.PartOfDomain -and $pc.Domain -eq "santacasa.local"){
 })
 
 #=================================================
-# BOTÃO WINDOWS / OFFICE
+# BOTÃƒO WINDOWS / OFFICE
 #=================================================
 
 $btnOffice.Add_Click({
@@ -470,9 +470,9 @@ $btnOffice.Add_Click({
 
         $progress.Value = 100
 
-        Add-Log "Rotina concluída."
+        Add-Log "Rotina concluÃ­da."
 
-        $status.Text = "Status: Concluído."
+        $status.Text = "Status: ConcluÃ­do."
 
     }
     catch{
