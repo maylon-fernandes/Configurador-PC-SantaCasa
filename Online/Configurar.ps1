@@ -580,6 +580,34 @@ $btnProgramas.Add_Click({
 
 })
 
+#=================================================
+# JANELA - INSTALAR PROGRAMAS
+#=================================================
+
+$btnProgramas.Add_Click({
+
+    $formProgramas = New-Object Windows.Forms.Form
+    $formProgramas.Text = "Instalação de Programas"
+    $formProgramas.Size = New-Object Drawing.Size(420,350)
+    $formProgramas.StartPosition = "CenterParent"
+    $formProgramas.FormBorderStyle = "FixedDialog"
+    $formProgramas.MaximizeBox = $false
+    $formProgramas.MinimizeBox = $false
+    $formProgramas.BackColor = [Drawing.Color]::White
+
+    # Título
+    $lblTitulo = New-Object Windows.Forms.Label
+    $lblTitulo.Text = "Selecione os programas para instalar:"
+    $lblTitulo.Font = New-Object Drawing.Font("Segoe UI",11,[Drawing.FontStyle]::Bold)
+    $lblTitulo.AutoSize = $true
+    $lblTitulo.Location = New-Object Drawing.Point(20,20)
+
+    $formProgramas.Controls.Add($lblTitulo)
+
+    $formProgramas.ShowDialog()
+
+})
+
 $form.ShowDialog()
 
 if($logo.Image){
