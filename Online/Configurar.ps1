@@ -514,6 +514,15 @@ $formProgramas.MaximizeBox = $false
 $formProgramas.BackColor = [Drawing.Color]::White
 $formProgramas.Font = New-Object Drawing.Font("Segoe UI",10)
 
+#=================================================
+# ABRIR A JANELA QUANDO CLICAR NO BOTÃO
+#=================================================
+$btnProgramas.Add_Click({
+
+    $formProgramas.ShowDialog()
+
+})
+
 
 #=================================================
 # TÍTULO
