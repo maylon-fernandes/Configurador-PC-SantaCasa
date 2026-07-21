@@ -507,9 +507,9 @@ $btnOffice.Add_Click({
 
 $btnProgramas.Add_Click({
 
-    $formProgramas = New-Object Windows.Forms.Form
+$formProgramas = New-Object Windows.Forms.Form
 $formProgramas.Text = "Instalação de Programas"
-$formProgramas.Size = New-Object Drawing.Size(430,330)
+$formProgramas.Size = New-Object Drawing.Size(450,380)
 $formProgramas.StartPosition = "CenterParent"
 $formProgramas.FormBorderStyle = "FixedDialog"
 $formProgramas.MaximizeBox = $false
@@ -521,10 +521,10 @@ $formProgramas.BackColor = [Drawing.Color]::White
 #=================================================
 
 $lblTitulo = New-Object Windows.Forms.Label
-$lblTitulo.Text = "Selecione os programas para instalar:"
-$lblTitulo.Font = New-Object Drawing.Font("Segoe UI",11,[Drawing.FontStyle]::Bold)
+$lblTitulo.Text = "Escolha os programas que deseja instalar"
+$lblTitulo.Font = New-Object Drawing.Font("Segoe UI",12,[Drawing.FontStyle]::Bold)
 $lblTitulo.AutoSize = $true
-$lblTitulo.Location = New-Object Drawing.Point(20,20)
+$lblTitulo.Location = New-Object Drawing.Point(35,25)
 
 $formProgramas.Controls.Add($lblTitulo)
 
@@ -532,35 +532,41 @@ $formProgramas.Controls.Add($lblTitulo)
 # CHECKBOXES
 #=================================================
 
+$fonte = New-Object Drawing.Font("Segoe UI",10)
+
 $chkChrome = New-Object Windows.Forms.CheckBox
 $chkChrome.Text = "Google Chrome"
-$chkChrome.Location = New-Object Drawing.Point(30,60)
-$chkChrome.AutoSize = $true
+$chkChrome.Font = $fonte
 $chkChrome.Checked = $true
+$chkChrome.AutoSize = $true
+$chkChrome.Location = New-Object Drawing.Point(45,75)
 
 $formProgramas.Controls.Add($chkChrome)
 
 $chkWinRAR = New-Object Windows.Forms.CheckBox
 $chkWinRAR.Text = "WinRAR"
-$chkWinRAR.Location = New-Object Drawing.Point(30,90)
-$chkWinRAR.AutoSize = $true
+$chkWinRAR.Font = $fonte
 $chkWinRAR.Checked = $true
+$chkWinRAR.AutoSize = $true
+$chkWinRAR.Location = New-Object Drawing.Point(45,110)
 
 $formProgramas.Controls.Add($chkWinRAR)
 
 $chkJava = New-Object Windows.Forms.CheckBox
 $chkJava.Text = "Java"
-$chkJava.Location = New-Object Drawing.Point(30,120)
-$chkJava.AutoSize = $true
+$chkJava.Font = $fonte
 $chkJava.Checked = $true
+$chkJava.AutoSize = $true
+$chkJava.Location = New-Object Drawing.Point(45,145)
 
 $formProgramas.Controls.Add($chkJava)
 
 $chkTasy = New-Object Windows.Forms.CheckBox
-$chkTasy.Text = "Atalho Tasy"
-$chkTasy.Location = New-Object Drawing.Point(30,150)
-$chkTasy.AutoSize = $true
+$chkTasy.Text = "Atalho do Tasy"
+$chkTasy.Font = $fonte
 $chkTasy.Checked = $true
+$chkTasy.AutoSize = $true
+$chkTasy.Location = New-Object Drawing.Point(45,180)
 
 $formProgramas.Controls.Add($chkTasy)
 
@@ -570,25 +576,50 @@ $formProgramas.Controls.Add($chkTasy)
 
 $btnSelecionarTudo = New-Object Windows.Forms.Button
 $btnSelecionarTudo.Text = "Selecionar Tudo"
-$btnSelecionarTudo.Size = New-Object Drawing.Size(120,35)
-$btnSelecionarTudo.Location = New-Object Drawing.Point(20,220)
+$btnSelecionarTudo.Size = New-Object Drawing.Size(140,38)
+$btnSelecionarTudo.Location = New-Object Drawing.Point(35,255)
 
 $formProgramas.Controls.Add($btnSelecionarTudo)
 
 $btnLimpar = New-Object Windows.Forms.Button
 $btnLimpar.Text = "Limpar"
-$btnLimpar.Size = New-Object Drawing.Size(90,35)
-$btnLimpar.Location = New-Object Drawing.Point(150,220)
+$btnLimpar.Size = New-Object Drawing.Size(90,38)
+$btnLimpar.Location = New-Object Drawing.Point(185,255)
 
 $formProgramas.Controls.Add($btnLimpar)
 
+#=================================================
+# AÇÕES DOS BOTÕES
+#=================================================
+
+$btnSelecionarTudo.Add_Click({
+
+    $chkChrome.Checked = $true
+    $chkWinRAR.Checked = $true
+    $chkJava.Checked = $true
+    $chkTasy.Checked = $true
+
+})
+
+
+$btnLimpar.Add_Click({
+
+    $chkChrome.Checked = $false
+    $chkWinRAR.Checked = $false
+    $chkJava.Checked = $false
+    $chkTasy.Checked = $false
+
+})
+
+
 $btnInstalar = New-Object Windows.Forms.Button
-$btnInstalar.Text = "Instalar"
-$btnInstalar.Size = New-Object Drawing.Size(90,35)
-$btnInstalar.Location = New-Object Drawing.Point(250,220)
+$btnInstalar.Text = "Instalar Programas"
+$btnInstalar.Size = New-Object Drawing.Size(155,38)
+$btnInstalar.Location = New-Object Drawing.Point(250,255)
 $btnInstalar.BackColor = [Drawing.Color]::ForestGreen
 $btnInstalar.ForeColor = "White"
 $btnInstalar.FlatStyle = "Flat"
+$btnInstalar.Font = New-Object Drawing.Font("Segoe UI",9,[Drawing.FontStyle]::Bold)
 
 $formProgramas.Controls.Add($btnInstalar)
 
