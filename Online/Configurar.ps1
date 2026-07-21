@@ -740,7 +740,7 @@ $panelProgramas.Controls.Add($picTasy)
 
 
 $chkTasy = New-Object Windows.Forms.CheckBox
-$chkTasy.Text = "Tasy"
+$chkTasy.Text = "Tasy EMR (Atalho do navegador)"
 $chkTasy.Location = New-Object Drawing.Point(75,180)
 $chkTasy.AutoSize = $true
 
@@ -793,25 +793,6 @@ $btnInstalar.Font = New-Object Drawing.Font(
 )
 
 $formProgramas.Controls.Add($btnInstalar)
-
-
-
-#=================================================
-# BOTÃO CANCELAR
-#=================================================
-
-$btnCancelar = New-Object Windows.Forms.Button
-$btnCancelar.Text = "Cancelar cc"
-$btnCancelar.Size = New-Object Drawing.Size(90,35)
-$btnCancelar.Location = New-Object Drawing.Point(500,20)
-
-$btnCancelar.Add_Click({
-    $formProgramas.Close()
-})
-
-$formProgramas.Controls.Add($btnCancelar)
-
-
 
 #=================================================
 # AÇÕES
