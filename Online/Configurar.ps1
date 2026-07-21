@@ -30,33 +30,67 @@ if(!$usuarioAdmin){
 # CAMINHO DOS ÍCONES
 #=================================================
 
-$assets = Join-Path $PSScriptRoot "assets\icons"
+if($PSScriptRoot){
+
+    $assets = Join-Path $PSScriptRoot "assets\icons"
+
+}
+else{
+
+    $assets = Join-Path (Get-Location) "assets\icons"
+
+}
+
+Write-Host "Pasta dos ícones: $assets"
 
 #=================================================
-# FUNÇÃO CARREGAR IMAGEM
+# FUNÇÃO BAIXAR ÍCONES
 #=================================================
 
-function CarregarImagem {
+function CarregarIcone {
 
     param(
-        $Arquivo
+        $NomeArquivo
     )
 
-    $caminho = Join-Path $assets $Arquivo
+    $url = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/icons/$NomeArquivo"
 
-    if(Test-Path $caminho){
+    $temp = "$env:TEMP\$NomeArquivo"
 
-        return [System.Drawing.Image]::FromFile($caminho)
+
+    try {
+
+        Invoke-WebRequest `
+        -Uri $url `
+        -OutFile $temp `
+        -ErrorAction Stop
+
+
+        $bytes = [System.IO.File]::ReadAllBytes($temp)
+
+        $stream = New-Object System.IO.MemoryStream
+
+        $stream.Write($bytes,0,$bytes.Length)
+
+        $stream.Position = 0
+
+
+        $imagem = [System.Drawing.Image]::FromStream($stream)
+
+
+        return @{
+            Image = $imagem
+            Stream = $stream
+        }
+
+    }
+    catch {
+
+        Write-Host "Erro ao baixar ícone $NomeArquivo"
+        return $null
 
     }
 
-    else{
-
-        Write-Host "Ícone não encontrado: $caminho"
-
-    }
-
-    return $null
 }
 
 #=================================================
@@ -603,14 +637,20 @@ $formProgramas.Controls.Add($panelProgramas)
 
 
 #========================
-# GOOGLE CHROME
+# CHROME
 #========================
 
 $picChrome = New-Object Windows.Forms.PictureBox
 $picChrome.Location = New-Object Drawing.Point(20,20)
 $picChrome.Size = New-Object Drawing.Size(40,40)
 $picChrome.SizeMode = "Zoom"
-$picChrome.Image = CarregarImagem "chrome.png"
+
+$chromeIcon = CarregarIcone "chrome.png"
+
+if($chromeIcon){
+    $picChrome.Image = $chromeIcon.Image
+    $picChrome.Tag = $chromeIcon.Stream
+}
 
 $panelProgramas.Controls.Add($picChrome)
 
@@ -632,7 +672,13 @@ $picWinRAR = New-Object Windows.Forms.PictureBox
 $picWinRAR.Location = New-Object Drawing.Point(20,70)
 $picWinRAR.Size = New-Object Drawing.Size(40,40)
 $picWinRAR.SizeMode = "Zoom"
-$picWinRAR.Image = CarregarImagem "winrar.png"
+
+$winrarIcon = CarregarIcone "winrar.png"
+
+if($winrarIcon){
+    $picWinRAR.Image = $winrarIcon.Image
+    $picWinRAR.Tag = $winrarIcon.Stream
+}
 
 $panelProgramas.Controls.Add($picWinRAR)
 
@@ -654,7 +700,13 @@ $picJava = New-Object Windows.Forms.PictureBox
 $picJava.Location = New-Object Drawing.Point(20,120)
 $picJava.Size = New-Object Drawing.Size(40,40)
 $picJava.SizeMode = "Zoom"
-$picJava.Image = CarregarImagem "java.png"
+
+$javaIcon = CarregarIcone "java.png"
+
+if($javaIcon){
+    $picJava.Image = $javaIcon.Image
+    $picJava.Tag = $javaIcon.Stream
+}
 
 $panelProgramas.Controls.Add($picJava)
 
@@ -676,7 +728,13 @@ $picTasy = New-Object Windows.Forms.PictureBox
 $picTasy.Location = New-Object Drawing.Point(20,170)
 $picTasy.Size = New-Object Drawing.Size(40,40)
 $picTasy.SizeMode = "Zoom"
-$picTasy.Image = CarregarImagem "tasy.png"
+
+$tasyIcon = CarregarIcone "tasy.png"
+
+if($tasyIcon){
+    $picTasy.Image = $tasyIcon.Image
+    $picTasy.Tag = $tasyIcon.Stream
+}
 
 $panelProgramas.Controls.Add($picTasy)
 
