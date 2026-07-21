@@ -681,15 +681,6 @@ $btnLimpar.Add_Click({
 
 })
 
-
-
-#=================================================
-# ABRIR JANELA
-#=================================================
-
-$formProgramas.ShowDialog()
-
-
 $form.ShowDialog()
 
 if($logo.Image){
