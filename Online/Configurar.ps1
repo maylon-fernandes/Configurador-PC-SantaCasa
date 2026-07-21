@@ -646,7 +646,7 @@ $formProgramas.Controls.Add($btnInstalar)
 #=================================================
 
 $btnCancelar = New-Object Windows.Forms.Button
-$btnCancelar.Text = "Cancelar"
+$btnCancelar.Text = "Cancelar cc"
 $btnCancelar.Size = New-Object Drawing.Size(90,35)
 $btnCancelar.Location = New-Object Drawing.Point(500,20)
 
