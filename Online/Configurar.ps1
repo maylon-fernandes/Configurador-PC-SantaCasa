@@ -689,7 +689,6 @@ $btnLimpar.Add_Click({
 
 $formProgramas.ShowDialog()
 
-})
 
 $form.ShowDialog()
 
