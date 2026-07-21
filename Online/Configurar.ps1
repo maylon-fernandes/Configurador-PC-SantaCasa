@@ -117,7 +117,7 @@ $logo.SizeMode = "Zoom"
 
 
 # Link da logo no GitHub
-$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
+$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/scmplogo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
 
