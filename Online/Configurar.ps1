@@ -103,7 +103,7 @@ $form.Size = New-Object Drawing.Size(850,650)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedSingle"
 $form.MaximizeBox = $false
-$form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#011C45")
+$form.BackColor = [Drawing.Color]::White
 
 #=================================================
 # LOGO
@@ -117,7 +117,7 @@ $logo.SizeMode = "Zoom"
 
 
 # Link da logo no GitHub
-$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/scmplogo.png"
+$logoURL = "https://raw.githubusercontent.com/maylon-fernandes/Configurador-PC-SantaCasa/main/assets/logo.png"
 
 $tempLogo = "$env:TEMP\SantaCasa_logo.png"
 
