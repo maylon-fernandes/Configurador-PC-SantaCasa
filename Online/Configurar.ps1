@@ -27,6 +27,39 @@ if(!$usuarioAdmin){
 }
 
 #=================================================
+# CAMINHO DOS ÍCONES
+#=================================================
+
+$assets = Join-Path $PSScriptRoot "assets\icons"
+
+#=================================================
+# FUNÇÃO CARREGAR IMAGEM
+#=================================================
+
+function CarregarImagem {
+
+    param(
+        $Arquivo
+    )
+
+    $caminho = Join-Path $assets $Arquivo
+
+    if(Test-Path $caminho){
+
+        return [System.Drawing.Image]::FromFile($caminho)
+
+    }
+
+    else{
+
+        Write-Host "Ícone não encontrado: $caminho"
+
+    }
+
+    return $null
+}
+
+#=================================================
 # JANELA
 #=================================================
 
@@ -564,40 +597,95 @@ $panelProgramas.BackColor = [Drawing.Color]::White
 
 $formProgramas.Controls.Add($panelProgramas)
 
+#=================================================
+# PROGRAMAS COM ÍCONES
+#=================================================
 
 
-#=================================================
-# CHECKBOX PROGRAMAS
-#=================================================
+#========================
+# GOOGLE CHROME
+#========================
+
+$picChrome = New-Object Windows.Forms.PictureBox
+$picChrome.Location = New-Object Drawing.Point(20,20)
+$picChrome.Size = New-Object Drawing.Size(40,40)
+$picChrome.SizeMode = "Zoom"
+$picChrome.Image = CarregarImagem "chrome.png"
+
+$panelProgramas.Controls.Add($picChrome)
+
 
 $chkChrome = New-Object Windows.Forms.CheckBox
 $chkChrome.Text = "Google Chrome"
-$chkChrome.Location = New-Object Drawing.Point(25,25)
+$chkChrome.Location = New-Object Drawing.Point(75,30)
 $chkChrome.AutoSize = $true
+
 $panelProgramas.Controls.Add($chkChrome)
 
 
 
+#========================
+# WINRAR
+#========================
+
+$picWinRAR = New-Object Windows.Forms.PictureBox
+$picWinRAR.Location = New-Object Drawing.Point(20,70)
+$picWinRAR.Size = New-Object Drawing.Size(40,40)
+$picWinRAR.SizeMode = "Zoom"
+$picWinRAR.Image = CarregarImagem "winrar.png"
+
+$panelProgramas.Controls.Add($picWinRAR)
+
+
 $chkWinRAR = New-Object Windows.Forms.CheckBox
 $chkWinRAR.Text = "WinRAR"
-$chkWinRAR.Location = New-Object Drawing.Point(25,75)
+$chkWinRAR.Location = New-Object Drawing.Point(75,80)
 $chkWinRAR.AutoSize = $true
+
 $panelProgramas.Controls.Add($chkWinRAR)
 
 
 
+#========================
+# JAVA
+#========================
+
+$picJava = New-Object Windows.Forms.PictureBox
+$picJava.Location = New-Object Drawing.Point(20,120)
+$picJava.Size = New-Object Drawing.Size(40,40)
+$picJava.SizeMode = "Zoom"
+$picJava.Image = CarregarImagem "java.png"
+
+$panelProgramas.Controls.Add($picJava)
+
+
 $chkJava = New-Object Windows.Forms.CheckBox
 $chkJava.Text = "Java"
-$chkJava.Location = New-Object Drawing.Point(25,125)
+$chkJava.Location = New-Object Drawing.Point(75,130)
 $chkJava.AutoSize = $true
+
 $panelProgramas.Controls.Add($chkJava)
 
 
 
+#========================
+# TASY
+#========================
+
+$picTasy = New-Object Windows.Forms.PictureBox
+$picTasy.Location = New-Object Drawing.Point(20,170)
+$picTasy.Size = New-Object Drawing.Size(40,40)
+$picTasy.SizeMode = "Zoom"
+$picTasy.Image = CarregarImagem "tasy.png"
+
+$panelProgramas.Controls.Add($picTasy)
+
+
 $chkTasy = New-Object Windows.Forms.CheckBox
 $chkTasy.Text = "Tasy"
-$chkTasy.Location = New-Object Drawing.Point(25,175)
+$chkTasy.Location = New-Object Drawing.Point(75,180)
 $chkTasy.AutoSize = $true
+
 $panelProgramas.Controls.Add($chkTasy)
 
 
