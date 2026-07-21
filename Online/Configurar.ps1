@@ -103,7 +103,7 @@ $form.Size = New-Object Drawing.Size(850,650)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedSingle"
 $form.MaximizeBox = $false
-$form.BackColor = [Drawing.Color]::MidnightBlue
+$form.BackColor = [Drawing.Color]::FromHtml("#011c45")
 
 #=================================================
 # LOGO
