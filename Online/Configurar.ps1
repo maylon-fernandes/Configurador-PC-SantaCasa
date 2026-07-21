@@ -271,7 +271,7 @@ $form.Controls.Add($btnOffice)
 $btnProgramas = New-Object Windows.Forms.Button
 $btnProgramas.Text = "Instalar Programas"
 $btnProgramas.Size = New-Object Drawing.Size(180,45)
-$btnProgramas.Location = New-Object Drawing.Point(220,420)
+$btnProgramas.Location = New-Object Drawing.Point(20,420)
 $btnProgramas.BackColor = [Drawing.Color]::DodgerBlue
 $btnProgramas.ForeColor = "White"
 $btnProgramas.FlatStyle = "Flat"
@@ -304,7 +304,7 @@ $form.Controls.Add($btnDominio)
 $btnReiniciar = New-Object Windows.Forms.Button
 $btnReiniciar.Text = "Reiniciar"
 $btnReiniciar.Size = New-Object Drawing.Size(180,45)
-$btnReiniciar.Location = New-Object Drawing.Point(20,420)
+$btnReiniciar.Location = New-Object Drawing.Point(220,420)
 $btnReiniciar.BackColor = [Drawing.Color]::Firebrick
 $btnReiniciar.ForeColor = "White"
 $btnReiniciar.FlatStyle = "Flat"
